@@ -67,9 +67,9 @@ proposalForm.addEventListener("submit",event=>{
     ["Evaluación y seguimiento",`<p>Observa si el alumno o alumna puede participar y mostrar el aprendizaje previsto. Valora el mismo objetivo con formas de respuesta accesibles cuando sea posible. Anota qué apoyo ha resultado útil y revisa la propuesta tras la actividad.</p>`]
   ];
   proposalContent.innerHTML=blocks.map(([title,body])=>`<article class="proposal-block"><h4>${title}</h4>${body}</article>`).join("");
-  latestProposal=[`PROPUESTA ORIENTATIVA · ${level}`,`Área: ${subject}`,`Actividad: ${activity}`,barrier?`Barrera observada: ${barrier}`:"",...blocks.map(([title])=>title)].filter(Boolean).join("\\n\\n")+
-    "\\n\\n"+blocks.map(([title,body])=>title+"\\n"+body.replace(/<[^>]*>/g," ").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">")).join("\\n\\n")+
-    "\\n\\nRevisar y adaptar con el equipo docente y orientación, según corresponda.";
+  latestProposal=[`PROPUESTA ORIENTATIVA · ${level}`,`Área: ${subject}`,`Actividad: ${activity}`,barrier?`Barrera observada: ${barrier}`:"",...blocks.map(([title])=>title)].filter(Boolean).join("\n\n")+
+    "\n\n"+blocks.map(([title,body])=>title+"\n"+body.replace(/<[^>]*>/g," ").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">")).join("\n\n")+
+    "\n\nRevisar y adaptar con el equipo docente y orientación, según corresponda.";
   proposalResult.hidden=false;
   proposalResult.scrollIntoView({behavior:"smooth",block:"start"});
 });
