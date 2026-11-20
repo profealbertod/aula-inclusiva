@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#702B3A">
+  <meta name="description" content="Orientaciones y estrategias prácticas para una respuesta educativa inclusiva.">
+  <title>Aula Inclusiva · Adaptaciones para el aula</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Aula Inclusiva, inicio">
+      <span class="brand-mark" aria-hidden="true">✳</span>
+      <span><strong>Aula Inclusiva</strong><small>Ideas que abren posibilidades</small></span>
+    </a>
+    <nav aria-label="Navegación principal">
+      <a href="#explorar">Explorar</a><a href="#orientaciones">Cómo utilizarla</a>
+    </nav>
+    <span class="header-note">Guía para docentes</span>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">ENSEÑAR TAMBIÉN ES ADAPTAR</p>
+        <h1>Un aula con más<br><em>posibilidades</em> para todos.</h1>
+        <p class="hero-intro">Encuentra estrategias concretas para eliminar barreras, facilitar el aprendizaje y responder a la diversidad de tu alumnado.</p>
+        <a class="button button-light" href="#explorar">Explorar adaptaciones <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-aside" aria-label="Principios de la educación inclusiva">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="hero-seal"><span>ENSEÑAR</span><strong>con<br>mirada<br>inclusiva</strong><small>cada persona cuenta</small></div>
+        <span class="floating-note note-top">Observar</span><span class="floating-note note-bottom">Acompañar</span>
+      </div>
+    </section>
+    <section class="intro-row" id="explorar">
+      <div><p class="eyebrow">BANCO DE ESTRATEGIAS</p><h2>¿Qué barrera queremos reducir?</h2></div>
+      <p class="section-explainer">Explora las categorías y descubre medidas que puedes llevar a tu aula. Empieza por la necesidad observada, no por la etiqueta.</p>
+    </section>
+    <section class="toolbar" aria-label="Buscar adaptaciones">
+      <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar una necesidad o estrategia…" aria-label="Buscar una necesidad o estrategia"></label>
+      <label class="filter-label" for="stage">Etapa</label>
+      <select id="stage"><option value="Todas">Todas las etapas</option><option>Primaria</option><option>ESO</option><option>Bachillerato</option></select>
+    </section>
+    <section id="categories" class="category-grid" aria-live="polite"></section>
+    <section class="detail-section" id="detail" hidden>
+      <div class="detail-heading"><div><p class="eyebrow">ESTRATEGIAS PRÁCTICAS</p><h2 id="detail-title"></h2></div><button class="button button-soft" id="clear-filter" type="button">Ver todas</button></div>
+      <div id="strategies" class="strategy-grid"></div>
+    </section>
+    <section class="guide" id="orientaciones">
+      <div class="guide-symbol" aria-hidden="true">✳</div>
+      <div><p class="eyebrow">UNA IDEA IMPORTANTE</p><h2>Primero la persona.<br>Después, la estrategia.</h2></div>
+      <p>Las propuestas de esta guía son orientaciones generales. La respuesta educativa debe partir de la observación del alumno o alumna, el diálogo con la familia y la coordinación con orientación y el equipo docente. Ajusta cada medida al contexto y revisa si está funcionando.</p>
+    </section>
+  </main>
+  <footer><span class="footer-brand">Aula Inclusiva</span><span>Una herramienta de apoyo a la práctica docente.</span><p>Aplicación desarrollada en el marco del Proyecto STEAM 4.0 / Programa de Cooperación Territorial Código Escuela 4.0</p></footer>
+</body>
+</html>
