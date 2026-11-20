@@ -41,3 +41,43 @@ function matches(c){const q=search.value.trim().toLocaleLowerCase("es");return c
 function render(){const visible=categories.filter(matches);grid.innerHTML=visible.map(c=>`<button class="category-card" type="button" data-id="${c.id}" aria-pressed="${active===c.id}"><span class="category-icon" aria-hidden="true">${c.icon}</span><strong>${c.name}</strong><p>${c.desc}</p><small>${c.items.length} estrategias <span aria-hidden="true">→</span></small></button>`).join("");grid.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{active=active===b.dataset.id?null:b.dataset.id;render();renderDetail();}));if(active&&!visible.some(c=>c.id===active))active=null;renderDetail();}
 function renderDetail(){const c=categories.find(x=>x.id===active);detail.hidden=!c;if(!c)return;document.querySelector("#detail-title").textContent=c.name;const filtered=c.items.filter(i=>(stage.value==="Todas"||i[2].includes(stage.value)||i[2]==="Todas las etapas")&&(!search.value.trim()||i.join(" ").toLocaleLowerCase("es").includes(search.value.trim().toLocaleLowerCase("es"))));strategies.innerHTML=filtered.length?filtered.map(i=>`<article class="strategy-card"><h3>${i[0]}</h3><p>${i[1]}</p><div class="strategy-meta"><span>${i[2]}</span><span>${i[3]}</span></div></article>`).join(""):'<p>No hay estrategias que coincidan con estos filtros.</p>';detail.scrollIntoView({behavior:"smooth",block:"start"});}
 search.addEventListener("input",()=>{active=null;render();});stage.addEventListener("change",()=>{if(active)renderDetail();});document.querySelector("#clear-filter").addEventListener("click",()=>{active=null;search.value="";stage.value="Todas";render();});render();
+
+// Generador local de propuestas: combina los datos de la actividad con estrategias del banco.
+const proposalForm=document.querySelector("#proposal-form");
+const proposalResult=document.querySelector("#proposal-result");
+const proposalContent=document.querySelector("#proposal-content");
+let latestProposal="";
+function escapeHTML(value){return String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
+proposalForm.addEventListener("submit",event=>{
+  event.preventDefault();
+  const level=document.querySelector("#proposal-stage").value;
+  const subject=document.querySelector("#proposal-subject").value.trim();
+  const activity=document.querySelector("#proposal-activity").value.trim();
+  const category=categories.find(c=>c.id===document.querySelector("#proposal-category").value);
+  const barrier=document.querySelector("#proposal-barrier").value.trim();
+  if(!level||!subject||!activity||!category)return;
+  const relevant=category.items.filter(item=>item[2].includes(level)||item[2]==="Todas las etapas").slice(0,3);
+  const suggestions=relevant.length?relevant:category.items.slice(0,3);
+  const safeSubject=escapeHTML(subject),safeActivity=escapeHTML(activity),safeBarrier=escapeHTML(barrier);
+  const blocks=[
+    ["Punto de partida",`<p><strong>Etapa:</strong> ${escapeHTML(level)}<br><strong>Área:</strong> ${safeSubject}<br><strong>Actividad:</strong> ${safeActivity}</p>${barrier?`<p><strong>Barrera descrita:</strong> ${safeBarrier}</p>`:""}`],
+    ["Objetivo de la adaptación",`<p>Facilitar la participación y el acceso a ${safeActivity.toLocaleLowerCase("es")} en ${safeSubject}, reduciendo barreras sin perder de vista el objetivo de aprendizaje.</p>`],
+    ["Estrategias que puedes probar",`<ul>${suggestions.map(item=>`<li><strong>${escapeHTML(item[0])}:</strong> ${escapeHTML(item[1])}</li>`).join("")}</ul>`],
+    ["Organización y acompañamiento",`<p>Explica los pasos y qué se espera al inicio. Comprueba que las instrucciones se han entendido, acuerda cómo pedir ayuda y ofrece apoyos de forma discreta, retirándolos gradualmente cuando ya no sean necesarios.</p>`],
+    ["Evaluación y seguimiento",`<p>Observa si el alumno o alumna puede participar y mostrar el aprendizaje previsto. Valora el mismo objetivo con formas de respuesta accesibles cuando sea posible. Anota qué apoyo ha resultado útil y revisa la propuesta tras la actividad.</p>`]
+  ];
+  proposalContent.innerHTML=blocks.map(([title,body])=>`<article class="proposal-block"><h4>${title}</h4>${body}</article>`).join("");
+  latestProposal=[`PROPUESTA ORIENTATIVA · ${level}`,`Área: ${subject}`,`Actividad: ${activity}`,barrier?`Barrera observada: ${barrier}`:"",...blocks.map(([title])=>title)].filter(Boolean).join("\\n\\n")+
+    "\\n\\n"+blocks.map(([title,body])=>title+"\\n"+body.replace(/<[^>]*>/g," ").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">")).join("\\n\\n")+
+    "\\n\\nRevisar y adaptar con el equipo docente y orientación, según corresponda.";
+  proposalResult.hidden=false;
+  proposalResult.scrollIntoView({behavior:"smooth",block:"start"});
+});
+document.querySelector("#copy-proposal").addEventListener("click",async()=>{
+  if(!latestProposal)return;
+  const button=document.querySelector("#copy-proposal");
+  try{await navigator.clipboard.writeText(latestProposal);button.textContent="Copiado";}
+  catch{button.textContent="No disponible"; }
+  setTimeout(()=>{button.textContent="Copiar";},1800);
+});
+document.querySelector("#print-proposal").addEventListener("click",()=>window.print());
