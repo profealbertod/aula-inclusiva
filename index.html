@@ -16,7 +16,7 @@
       <span><strong>Aula Inclusiva</strong><small>Ideas que abren posibilidades</small></span>
     </a>
     <nav aria-label="Navegación principal">
-      <a href="#explorar">Explorar</a><a href="#orientaciones">Cómo utilizarla</a>
+      <a href="#explorar">Explorar</a><a href="#crear">Crear propuesta</a><a href="#orientaciones">Cómo utilizarla</a>
     </nav>
     <span class="header-note">Guía para docentes</span>
   </header>
@@ -47,6 +47,23 @@
     <section class="detail-section" id="detail" hidden>
       <div class="detail-heading"><div><p class="eyebrow">ESTRATEGIAS PRÁCTICAS</p><h2 id="detail-title"></h2></div><button class="button button-soft" id="clear-filter" type="button">Ver todas</button></div>
       <div id="strategies" class="strategy-grid"></div>
+    </section>
+
+    <section class="builder" id="crear">
+      <div class="builder-heading"><div><p class="eyebrow">ASISTENTE DE ADAPTACIONES</p><h2>Diseña una propuesta para tu aula</h2><p>Cuéntanos qué actividad estás preparando y qué barrera has observado. Obtendrás ideas iniciales que podrás revisar y adaptar.</p></div><span class="builder-stamp" aria-hidden="true">✳</span></div>
+      <form id="proposal-form" class="proposal-form">
+        <label>Etapa educativa<select id="proposal-stage" required><option value="">Selecciona una etapa</option><option>Primaria</option><option>ESO</option><option>Bachillerato</option></select></label>
+        <label>Área o asignatura<input id="proposal-subject" type="text" maxlength="80" placeholder="Ej. Lengua, Matemáticas, Ciencias…" required></label>
+        <label class="wide-field">Actividad que vas a realizar<input id="proposal-activity" type="text" maxlength="140" placeholder="Ej. Resolver problemas en pequeños grupos" required></label>
+        <label>Necesidad o barrera observada<select id="proposal-category" required><option value="">Selecciona una categoría</option><option value="atencion">Atención y funciones ejecutivas</option><option value="lectura">Lectura y escritura</option><option value="matematicas">Matemáticas y razonamiento</option><option value="comunicacion">Comunicación e interacción social</option><option value="sensorial">Acceso sensorial y físico</option><option value="aprendizaje">Aprendizaje y ritmo de trabajo</option><option value="bienestar">Bienestar emocional y autorregulación</option></select></label>
+        <label>¿Qué dificultad aparece? <span class="optional">(opcional)</span><textarea id="proposal-barrier" rows="3" maxlength="400" placeholder="Describe la barrera de forma general, sin incluir nombres ni datos personales."></textarea></label>
+        <div class="wide-field form-actions"><button class="button button-primary" type="submit">Crear propuesta <span aria-hidden="true">→</span></button><p>La propuesta se genera en esta página. No se envían ni guardan tus respuestas.</p></div>
+      </form>
+      <section id="proposal-result" class="proposal-result" aria-live="polite" hidden>
+        <div class="result-heading"><div><p class="eyebrow">BORRADOR ORIENTATIVO</p><h3>Tu propuesta de adaptación</h3></div><div class="result-actions"><button id="copy-proposal" class="button button-soft" type="button">Copiar</button><button id="print-proposal" class="button button-soft" type="button">Imprimir</button></div></div>
+        <div id="proposal-content"></div>
+        <p class="result-note">Revisa estas ideas con el equipo docente y, cuando proceda, con orientación y la familia. Ajusta las medidas a la persona, al contexto y a los objetivos de aprendizaje.</p>
+      </section>
     </section>
     <section class="guide" id="orientaciones">
       <div class="guide-symbol" aria-hidden="true">✳</div>
